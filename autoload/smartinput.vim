@@ -72,31 +72,31 @@ function! smartinput#define_default_rules()  "{{{2
     let self.table[a:name] = a:urules
   endfunction
   call urules.add('()', [
-  \   {'at': '\%#', 'char': '(', 'input': '()<Left>'},
-  \   {'at': '\%#\_s*)', 'char': ')', 'input': '<C-r>=smartinput#_leave_block('')'')<Enter><Right>'},
+  \   {'at': '\%#', 'char': '(', 'input': '()<C-g>U<Left>'},
+  \   {'at': '\%#\_s*)', 'char': ')', 'input': '<C-r>=smartinput#_leave_block('')'')<Enter><C-g>U<Right>'},
   \   {'at': '(\%#)', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '()\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#', 'char': '(', 'input': '('},
   \   {'at': '(\%#)', 'char': '<Enter>', 'input': '<Enter><Enter><Up><Esc>"_S'},
   \ ])
   call urules.add('[]', [
-  \   {'at': '\%#', 'char': '[', 'input': '[]<Left>'},
-  \   {'at': '\%#\_s*\]', 'char': ']', 'input': '<C-r>=smartinput#_leave_block('']'')<Enter><Right>'},
+  \   {'at': '\%#', 'char': '[', 'input': '[]<C-g>U<Left>'},
+  \   {'at': '\%#\_s*\]', 'char': ']', 'input': '<C-r>=smartinput#_leave_block('']'')<Enter><C-g>U<Right>'},
   \   {'at': '\[\%#\]', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '\[\]\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#', 'char': '[', 'input': '['},
   \ ])
   call urules.add('{}', [
-  \   {'at': '\%#', 'char': '{', 'input': '{}<Left>'},
-  \   {'at': '\%#\_s*}', 'char': '}', 'input': '<C-r>=smartinput#_leave_block(''}'')<Enter><Right>'},
+  \   {'at': '\%#', 'char': '{', 'input': '{}<C-g>U<Left>'},
+  \   {'at': '\%#\_s*}', 'char': '}', 'input': '<C-r>=smartinput#_leave_block(''}'')<Enter><C-g>U<Right>'},
   \   {'at': '{\%#}', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '{}\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#', 'char': '{', 'input': '{'},
   \   {'at': '{\%#}', 'char': '<Enter>', 'input': '<Enter><Enter><Up><Esc>"_S'},
   \ ])
   call urules.add('''''', [
-  \   {'at': '\%#', 'char': '''', 'input': '''''<Left>'},
-  \   {'at': '\%#''\ze', 'char': '''', 'input': '<Right>'},
+  \   {'at': '\%#', 'char': '''', 'input': '''''<C-g>U<Left>'},
+  \   {'at': '\%#''\ze', 'char': '''', 'input': '<C-g>U<Right>'},
   \   {'at': '''\%#''', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '''''\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#\ze', 'char': '''', 'input': ''''},
@@ -106,37 +106,37 @@ function! smartinput#define_default_rules()  "{{{2
   " So that rules for strong quote are written as additional ones for specific
   " 'filetype's which override the default behavior.
   call urules.add(''''' as strong quote', [
-  \   {'at': '\%#''', 'char': '''', 'input': '<Right>'},
+  \   {'at': '\%#''', 'char': '''', 'input': '<C-g>U<Right>'},
   \ ])
   call urules.add('''''''', [
-  \   {'at': '''''\%#', 'char': '''', 'input': '''''''''<Left><Left><Left>'},
-  \   {'at': '\%#''''''\ze', 'char': '''', 'input': '<Right><Right><Right>'},
+  \   {'at': '''''\%#', 'char': '''', 'input': '''''''''<C-g>U<Left><C-g>U<Left><C-g>U<Left>'},
+  \   {'at': '\%#''''''\ze', 'char': '''', 'input': '<C-g>U<Right><C-g>U<Right><C-g>U<Right>'},
   \   {'at': '''''''\%#''''''', 'char': '<BS>', 'input': '<BS><BS><BS><Del><Del><Del>'},
   \   {'at': '''''''''''''\%#', 'char': '<BS>', 'input': '<BS><BS><BS><BS><BS><BS>'},
   \ ])
   call urules.add('""', [
-  \   {'at': '\%#', 'char': '"', 'input': '""<Left>'},
-  \   {'at': '\%#"', 'char': '"', 'input': '<Right>'},
+  \   {'at': '\%#', 'char': '"', 'input': '""<C-g>U<Left>'},
+  \   {'at': '\%#"', 'char': '"', 'input': '<C-g>U<Right>'},
   \   {'at': '"\%#"', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '""\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#', 'char': '"', 'input': '"'},
   \ ])
   call urules.add('"""', [
-  \   {'at': '""\%#', 'char': '"', 'input': '""""<Left><Left><Left>'},
-  \   {'at': '\%#"""', 'char': '"', 'input': '<Right><Right><Right>'},
+  \   {'at': '""\%#', 'char': '"', 'input': '""""<C-g>U<Left><C-g>U<Left><C-g>U<Left>'},
+  \   {'at': '\%#"""', 'char': '"', 'input': '<C-g>U<Right><C-g>U<Right><C-g>U<Right>'},
   \   {'at': '"""\%#"""', 'char': '<BS>', 'input': '<BS><BS><BS><Del><Del><Del>'},
   \   {'at': '""""""\%#', 'char': '<BS>', 'input': '<BS><BS><BS><BS><BS><BS>'},
   \ ])
   call urules.add('``', [
-  \   {'at': '\%#', 'char': '`', 'input': '``<Left>'},
-  \   {'at': '\%#`', 'char': '`', 'input': '<Right>'},
+  \   {'at': '\%#', 'char': '`', 'input': '``<C-g>U<Left>'},
+  \   {'at': '\%#`', 'char': '`', 'input': '<C-g>U<Right>'},
   \   {'at': '`\%#`', 'char': '<BS>', 'input': '<BS><Del>'},
   \   {'at': '``\%#', 'char': '<BS>', 'input': '<BS><BS>'},
   \   {'at': '\\\%#', 'char': '`', 'input': '`'},
   \ ])
   call urules.add('```', [
-  \   {'at': '``\%#', 'char': '`', 'input': '````<Left><Left><Left>'},
-  \   {'at': '\%#```', 'char': '`', 'input': '<Right><Right><Right>'},
+  \   {'at': '``\%#', 'char': '`', 'input': '````<C-g>U<Left><C-g>U<Left><C-g>U<Left>'},
+  \   {'at': '\%#```', 'char': '`', 'input': '<C-g>U<Right><C-g>U<Right><C-g>U<Right>'},
   \   {'at': '```\%#```', 'char': '<BS>', 'input': '<BS><BS><BS><Del><Del><Del>'},
   \   {'at': '``````\%#', 'char': '<BS>', 'input': '<BS><BS><BS><BS><BS><BS>'},
   \ ])
@@ -145,14 +145,14 @@ function! smartinput#define_default_rules()  "{{{2
   \ ])
   call urules.add('Lisp quote', [
   \   {'at': '\%#', 'char': '''', 'input': ''''},
-  \   {'at': '\%#', 'char': '''', 'input': '''''<Left>',
+  \   {'at': '\%#', 'char': '''', 'input': '''''<C-g>U<Left>',
   \    'syntax': ['Constant']},
   \ ])
   " Unfortunately, the space beyond the end of a comment line is not
   " highlighted as 'Comment'.  So that it is necessary to define one more rule
   " to cover the edge case with only 'at'.
   call urules.add('Python string', [
-  \   {'at': '\v\c<([bu]|[bu]?r)>%#', 'char': '''', 'input': '''''<Left>'},
+  \   {'at': '\v\c<([bu]|[bu]?r)>%#', 'char': '''', 'input': '''''<C-g>U<Left>'},
   \   {'at': '\v\c<([bu]|[bu]?r)>%#', 'char': '''', 'input': '''',
   \    'syntax': ['Comment', 'Constant']},
   \   {'at': '\v\c\#.*<([bu]|[bu]?r)>%#$', 'char': '''', 'input': ''''},
